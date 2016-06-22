@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.UnknownHostException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -86,10 +87,22 @@ public class MainActivity extends AppCompatActivity {
 
             input.close();
 
-        }catch (MalformedURLException e1) {
-            Toast.makeText(context, getString(R.string.incorrectUrl), Toast.LENGTH_SHORT).show();
+        } catch (MalformedURLException | UnknownHostException eurl) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(context, getString(R.string.incorrectUrl), Toast.LENGTH_SHORT).show();
+                }
+            });
+
         } catch (Exception e) {
-            Toast.makeText(context, getString(R.string.unsortedError), Toast.LENGTH_SHORT).show();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(context, getString(R.string.unsortedError), Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
 
     }
